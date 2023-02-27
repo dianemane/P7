@@ -1,0 +1,213 @@
+.title-strip .bsui-hlight-heading {
+  border-left: 15px solid #2d2d2d;
+  color: #fff;
+  line-height: 1.8;
+  /*    line-height based on original heading line-height of 1.3 + 0.5 () */ }
+
+.title-strip .bsui-hlight__inner {
+  background: #2d2d2d;
+  -webkit-box-decoration-break: clone;
+  -ms-box-decoration-break: clone;
+  -o-box-decoration-break: clone;
+  box-decoration-break: clone;
+  -webkit-box-shadow: 15px 0 0 #2d2d2d, -15px 0 0 #2d2d2d;
+          box-shadow: 15px 0 0 #2d2d2d, -15px 0 0 #2d2d2d;
+  color: white;
+  display: inline;
+  padding: 0;
+  padding-top: 9px;
+  padding-bottom: 12px;
+  vertical-align: middle;
+  line-height: 1.6; }
+
+/* Title component related */
+.title-strip {
+  color: #fff;
+  font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+  /* Loop to create colour variations */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+  .title-strip .title-strip__wrapper {
+    padding: 30px 0; }
+  .title-strip .title-strip__heading {
+    margin: 0; }
+  .title-strip .title-strip__sub-heading {
+    font-style: normal; }
+  .title-strip .title-strip__info {
+    margin-top: 15px; }
+    @media (min-width: 768px) {
+      .title-strip .title-strip__info {
+        margin-top: 10px; } }
+    .title-strip .title-strip__info .title-strip__author {
+      margin-right: 10px; }
+    .title-strip .title-strip__info .title-strip__author-title {
+      font-size: 1rem;
+      font-style: normal;
+      margin-right: 10px; }
+    .title-strip .title-strip__info .title-strip__date {
+      font-size: 1rem;
+      font-style: normal; }
+      @media (max-width: 600px) {
+        .title-strip .title-strip__info .title-strip__date {
+          display: block;
+          margin-top: 5px; } }
+    .title-strip .title-strip__info .title-strip__date.title-strip__date--with-author:before {
+      /* Apply ".title-strip__date--with-author" to ".title-strip__date" when options to display author AND date are selected. This adds the vertical bar */
+      content: '';
+      margin: 0 15px 0 5px;
+      width: 1px;
+      border-left: 1px solid #fff;
+      height: 100%; }
+      @media (max-width: 600px) {
+        .title-strip .title-strip__info .title-strip__date.title-strip__date--with-author:before {
+          display: none; } }
+  .title-strip .title-strip__language-list {
+    float: right;
+    list-style: none;
+    margin-bottom: 0;
+    padding-bottom: 4px; }
+    @media (max-width: 767px) {
+      .title-strip .title-strip__language-list {
+        float: none;
+        margin-top: 10px;
+        padding-bottom: 2px; } }
+    .title-strip .title-strip__language-list .title-strip__language-link {
+      font-weight: bold;
+      margin-bottom: 15px; }
+      .title-strip .title-strip__language-list .title-strip__language-link:last-of-type {
+        margin-bottom: 0; }
+      @media (max-width: 767px) {
+        .title-strip .title-strip__language-list .title-strip__language-link {
+          display: inline;
+          margin-bottom: 0;
+          margin-right: 15px; } }
+  .title-strip .lg-text-link {
+    font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+    font-size: 1.142rem;
+    line-height: 1.3em;
+    font-weight: bold;
+    /* CSS below ensures there are no dependancies on "page-section--col--dark" being applied to the section */
+    color: #fff; }
+    .title-strip .lg-text-link:hover, .title-strip .lg-text-link:focus {
+      border-bottom: 2px solid white; }
+  .title-strip .title-strip__heading {
+    font-family: "Charter ITC", georgia, serif;
+    font-size: 2.875rem;
+    color: #fff;
+    margin-top: 0px;
+    margin-bottom: 0px; }
+    .title-strip .title-strip__heading.bsui-hlight {
+      padding-left: 15px; }
+    .page-dir--rtl .title-strip .title-strip__heading.bsui-hlight {
+      padding-right: 15px;
+      padding-left: 0; }
+    @media (max-width: 767px) {
+      .title-strip .title-strip__heading {
+        font-size: 2rem;
+        /*	use smaller font-size on tablet and mobile */ }
+      .title-strip .title-strip__heading .bsui-hlight__inner {
+        padding-top: 7px;
+        padding-bottom: 10px;
+        line-height: 1.5;
+        vertical-align: top; } }
+    @media (min-width: 768px) {
+      .title-strip .title-strip__heading .bsui-hlight__inner {
+        line-height: 0.6;
+        padding-top: 4px;
+        padding-bottom: 11px;
+        vertical-align: top; } }
+  .title-strip .title-strip__sub-heading {
+    font-size: 1.428rem;
+    font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+    color: #fff;
+    margin-top: -2px;
+    margin-bottom: 26px;
+    padding-left: 15px; }
+    @media (max-width: 767px) {
+      .title-strip .title-strip__sub-heading {
+        margin-top: 10px;
+        margin-bottom: 26px; }
+      .title-strip .title-strip__sub-heading .bsui-hlight__inner {
+        line-height: 1.8;
+        padding-top: 8px;
+        padding-bottom: 12px;
+        vertical-align: top; } }
+    @media (min-width: 768px) {
+      .title-strip .title-strip__sub-heading {
+        font-size: 1.428rem; }
+      .title-strip .title-strip__sub-heading .bsui-hlight__inner {
+        line-height: 1.8;
+        padding-top: 9px;
+        padding-bottom: 12px;
+        vertical-align: top; } }
+
+.title-strip.title-strip--functional {
+  background: #464646; }
+  @media (min-width: 768px) {
+    .title-strip.title-strip--functional {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column; }
+      .title-strip.title-strip--functional .title-strip__wrapper {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        min-height: 180px;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center; } }
+
+.page-primary-col--orange .title-strip.title-strip--content-pages {
+  background: #d04a02; }
+
+.page-primary-col--red .title-strip.title-strip--content-pages {
+  background: #e0301e; }
+
+.page-primary-col--burgundy .title-strip.title-strip--content-pages {
+  background: #e0301e; }
+
+.page-primary-col--maroon .title-strip.title-strip--content-pages {
+  background: #e0301e; }
+
+.page-primary-col--rose .title-strip.title-strip--content-pages {
+  background: #d93954; }
+
+.title-strip.title-strip--content-pages .title-strip__wrapper {
+  padding: 60px 0 35px; }
+  @media (min-width: 768px) {
+    .title-strip.title-strip--content-pages .title-strip__wrapper {
+      padding: 80px 0 40px; } }
+
+.page-dir--rtl .title-strip .row [class*="col-"] {
+  float: right; }
+
+.page-dir--rtl .title-strip .row .col-md-push-2 {
+  left: auto;
+  right: 16.66666667%; }
+
+/*  Overrides for large text links
+********************/
+/* Large text link */
+.title-strip .lg-text-link, .title-strip .lg-text-link:link, .title-strip .lg-text-link:visited, .title-strip .lg-text-link:focus .lg-text-link:hover {
+  border-bottom: 1px solid #ffffff;
+  color: #ffffff; }
+
+.title-strip .lg-text-link:hover, .title-strip .lg-text-link:focus {
+  border-bottom: 2px solid #ffffff;
+  color: #ffffff; }
+
+/*  end Overrides for large text links
+********************/
