@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+{%extends "bootstrap/base.html" %}
+
+{% block content %}
+<html lang="en" class="page-primary-col--red">
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home</title>
+    <link href="static/base.css" rel="stylesheet" />
+    <!-- Either include additional component stylesheets below or combine base.css with your other stylesheets -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  </head>
+  <body>
+   <header>
+      <img src="/static/logo-openclassroom.jpg" width="50" height="50">
+    <link href="static/title-strip.css" rel="stylesheet">
+    <div class="title-strip title-strip--functional dpe-component-wrapper">
+      <header class="title-strip__wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8">
+              <h6 class="title-strip__heading">Projet 7 - OpenClassrooms</h6>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+  </header>	
+  <div class="page-container" role="main">
+    <!-- Usage note: Begin adding page sections here -->
+    <!-- Usage note: first section added below -->
+    <section class="page-section page-section--no-pad fullwidth section-col--white" >
+      <div class="parsys sectionpar">
+        <!-- Usage note: replace the following with component snippet HTML --> 
+        <br>
+        <div class="container">
+          <div class="main">
+            <div class="row">
+              <div class="col-md-8" style="background-color:#565656">
+               <form action="{{ url_for('home')}}" method="POST">
+                <h4 style="color:#fff">Jauge du client</h4>
+                <h6 style="color:#fff">Entrez votre ID client : </h6>
+                <!-- <input type="text" name="comment"/> -->
+                <textarea name="gauge_message" rows="1" cols="30"></textarea>
+                <br/>
+                <input type="submit"  onclick="DisplayResult()" class="btn btn-primary mb-2" value="Calcul de la jauge"> 
+              </form>
+              <br/>
+            </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <br>
+ </div>
+</section>
+<section class="page-section fullwidth section-col--light-grey" >
+  <div class="parsys sectionpar">
+    <!-- Usage note: replace the following with component snippet HTML --> 
+    <div class="container">
+      <div class="main">
+        <div class="row">
+            <div id="myDIV">
+             {% if prediction == ''%}
+             {% else %}
+             <b><p><font face="georgia" size="5">{{ prediction | safe}}</font></p></b>
+             {% endif %}
+            <br/>
+          </div>      
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br>
+</div>
+</section>
+    <section class="page-section page-section--no-pad fullwidth section-col--white" >
+      <div class="parsys sectionpar">
+        <!-- Usage note: replace the following with component snippet HTML --> 
+        <div class="container">
+          <div class="main">
+            <div class="row">
+              <div class="col-md-8" style="background-color:#565656">
+               <form action="{{ url_for('home')}}" method="POST">
+                <h4 style="color:#fff">Distribution et place du client</h4>
+                <h6 style="color:#fff">Entrez votre ID client : </h6>
+                <!-- <input type="text" name="comment"/> -->
+                <textarea name="distrib_message" rows="1" cols="30"></textarea>
+
+                <h6 style="color:#fff">Entrez votre variable numérique : </h6>
+                <!-- <input type="text" name="comment"/> -->
+                <textarea name="distrib_message2" rows="1" cols="30"></textarea>
+                <br/>
+                <input type="submit"  onclick="DisplayResult()" class="btn btn-primary mb-2" value="Afficher les graphes de distribution / densité"> 
+              </form>
+              <br/>
+            </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <br>
+ </div>
+</section>
+<section class="page-section fullwidth section-col--light-grey" >
+  <div class="parsys sectionpar">
+    <!-- Usage note: replace the following with component snippet HTML --> 
+
+    <div class="container">
+      <div class="main">
+        <div class="row">
+            <div id="myDIV">
+             {% if prediction2
+              == ''%}
+             {% else %}
+             <img src="data:image/png;base64,{{ prediction2 }}" alt="Graphique" class="center"/>
+             {% endif %}
+            <br/>
+          </div>      
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+    <section class="page-section page-section--no-pad fullwidth section-col--white" >
+      <div class="parsys sectionpar">
+        <!-- Usage note: replace the following with component snippet HTML --> 
+    
+        <div class="container">
+          <div class="main">
+            <div class="row">
+              <div class="col-md-8" style="background-color:#565656">
+               <form action="{{ url_for('home')}}" method="POST">
+                <h4 style="color:#fff">ANOVA2</h4>
+                <h6 style="color:#fff">Entrez votre variable numérique : </h6>
+                <!-- <input type="text" name="comment"/> -->
+                <select name="anova_num" method="GET" action="/">
+                  <option value="{{menu_num[0]}}" selected>{{menu_num[0]}}</option>
+                  {% for anova_num in menu_num[1:] %}
+                    <option value="{{anova_num}}">{{anova_num}}</option>
+                  {% endfor %}
+                </select>
+                <h6 style="color:#fff">Entrez votre variable catégorique : </h6>
+                <!-- <input type="text" name="comment"/> -->
+                <select name="anova_cat" method="GET" action="/">
+                  <option value="{{menu_cat[0]}}" selected>{{menu_cat[0]}}</option>
+                  {% for anova_cat in menu_cat[1:] %}
+                    <option value="{{anova_cat}}">{{anova_cat}}</option>
+                  {% endfor %}
+                </select>
+                <br/>
+
+                <input type="submit"  onclick="DisplayResult()" class="btn btn-primary mb-2" value="Afficher le graphe anova"> 
+                
+              </form>
+              <br/>
+            </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <br>
+ </div>
+</section>
+<section class="page-section fullwidth section-col--light-grey" >
+  <div class="parsys sectionpar">
+    <!-- Usage note: replace the following with component snippet HTML --> 
+    <div class="container">
+      <div class="main">
+        <div class="row">
+            <div id="myDIV">
+             {% if prediction3
+              == ''%}
+             {% else %}
+             <img src="data:image/png;base64,{{ prediction3 }}" alt="Graphique" class="center"/>
+             {% endif %}
+            <br/>
+          </div>      
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+    <section class="page-section page-section--no-pad fullwidth section-col--white" >
+      <div class="parsys sectionpar">
+        <!-- Usage note: replace the following with component snippet HTML --> 
+    
+        <div class="container">
+          <div class="main">
+            <div class="row">
+              <div class="col-md-8" style="background-color:#565656">
+               <form action="{{ url_for('home')}}" method="POST">
+                <h4 style="color:#fff">Analyse bivariée numérique</h4>
+                <h6 style="color:#fff">Entrez votre ID client : </h6>
+                <!-- <input type="text" name="comment"/> -->
+                <textarea name="analyse_bi_ID" rows="1" cols="30"></textarea>
+                <h6 style="color:#fff">Entrez votre 1ère variable numérique : </h6>
+                <!-- <input type="text" name="comment"/> -->
+                <select name="analyse_bi_num1" method="GET" action="/">
+                  <option value="{{menu_num[0]}}" selected>{{menu_num[0]}}</option>
+                  {% for analyse_bi_num1 in menu_num[1:] %}
+                    <option value="{{analyse_bi_num1}}">{{analyse_bi_num1}}</option>
+                  {% endfor %}
+                </select>
+                <h6 style="color:#fff">Entrez votre 2ème variable numérique : </h6>
+                <!-- <input type="text" name="comment"/> -->
+                <select name="analyse_bi_num2" method="GET" action="/">
+                  <option value="{{menu_num[0]}}" selected>{{menu_num[0]}}</option>
+                  {% for analyse_bi_num2 in menu_num[1:] %}
+                    <option value="{{analyse_bi_num2}}">{{analyse_bi_num2}}</option>
+                  {% endfor %}
+                </select>
+                <br/>
+
+                <input type="submit"  onclick="DisplayResult()" class="btn btn-primary mb-2" value="Afficher le graphe anova"> 
+                
+              </form>
+              <br/>
+            </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <br>
+ </div>
+</section>
+<section class="page-section fullwidth section-col--light-grey" >
+  <div class="parsys sectionpar">
+    <!-- Usage note: replace the following with component snippet HTML --> 
+    <div class="container">
+      <div class="main">
+        <div class="row">
+            <div id="myDIV">
+             {% if prediction4
+              == ''%}
+             {% else %}
+             <img src="data:image/png;base64,{{ prediction4 }}" alt="Graphique" class="center"/>
+             {% endif %}
+            <br/>
+          </div>      
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- Usage note: END adding page sections here -->
+
+</div>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="static/bootstrap.min.js"></script>
+</body>
+{% endblock %}
+
+
+{% block scripts %}
+
+{{ super() }} 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<!-- Function for Displaying Table -->
+<script>
+  function displayResult() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+</script>
+
+
+
+{% endblock%}
+</html>

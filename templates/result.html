@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/base.css') }}">
+</head>
+<body>
+
+	<header>
+		<div class="container">
+		<div id="brandname">
+			ML App
+		</div>
+		<h2>Classification</h2>
+		
+	</div>
+	</header>
+	<p style="color:blue;font-size:20;text-align: center;"><b>Results for Comment</b></p>
+	<div class="results">
+	<h2 style="color:blue;">
+		<p>The code of the product is: {{ prediction }}</p>
+	</h2>
+    <p><a href="{{ url_for('home')}}" type="button" class="btn btn-danger" > Return</a></p>
+	</div>
+
+</body>
+</html>
