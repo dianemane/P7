@@ -20,6 +20,8 @@ import matplotlib.pyplot as plt
 import lightgbm
 import plotly.graph_objects as go
 
+from shap import TreeExplainer, Explanation
+
 # importe nos fonctions
 from process_utils import *
 
@@ -126,6 +128,26 @@ def home():
 			analyse_bi_num = base64.b64encode(tmpfile.getvalue()).decode()
 
 
+	global_shap_graph = ''
+	fig5 = global_shap(data, best_model_balanced)
+	tmpfile = io.BytesIO()
+	fig5.savefig(tmpfile, format='png')
+	global_shap_graph = base64.b64encode(tmpfile.getvalue()).decode()
+
+
+
+	local_shap_graph = ''
+	if request.method == 'POST' and 'local_shap_ID' in request.form:
+		# le message que rentre l'utilisateur
+		local_shap_ID = request.form['local_shap_ID']
+		print("POST MSG :   ======"     ,local_shap_ID)
+		fig6 = local_shap(data, best_model_balanced, local_shap_ID)
+		if not isinstance(fig6, str):
+			tmpfile = io.BytesIO()
+			fig6.savefig(tmpfile, format='png')
+			local_shap_graph = base64.b64encode(tmpfile.getvalue()).decode()
+
+
 	# will put the result at "prediction" and "prediction2" in home.html
 	return render_template('home.html',
 		prediction = gauge,
@@ -133,7 +155,12 @@ def home():
 		prediction3 = anova,
 		menu_num = menu_num,
 		menu_cat = menu_cat,
-		prediction4 = analyse_bi_num)
+		prediction4 = analyse_bi_num,
+		prediction5 = global_shap_graph,
+		prediction6 = local_shap_graph)
+
+
+
 
 
 if __name__ == '__main__':

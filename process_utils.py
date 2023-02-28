@@ -14,7 +14,9 @@ import datetime
 import lightgbm
 import matplotlib.pyplot as plt
 
-import plotly.graph_objects as go
+import shap
+from shap import TreeExplainer, Explanation
+
 
 
 def df_to_X_preprocessing(df, cust_ID):
@@ -251,4 +253,31 @@ def process_csv(filename, filter):
     return df_html, img_file
 
 
+#SHAP
+def sv(data, model, cust_ID):
+  explainer = shap.TreeExplainer(model)
+  mean_sv = explainer.expected_value[0]
+  X = df_to_X_preprocessing(data, cust_ID)
+  shap_values = explainer.shap_values(X)[1]
+  return shap_values, mean_sv
 
+
+def global_shap(data, model):
+  shap_values, mean_sv = sv(data, model, None)
+  X = df_to_X_preprocessing(data, None)
+  # global shap values for class 1 : bad client
+  return shap.summary_plot(shap_values, X, max_display=12)
+
+
+def local_shap(data, model, cust_ID):
+  X = df_to_X_preprocessing(df, cust_ID)
+  res = X
+  if isinstance(res, pd.DataFrame):
+    shap_values, mean_sv = sv(data, model, cust_ID)
+    X = df_to_X_preprocessing(data, cust_ID)
+    # global shap values for class 1 : bad client
+    fig = shap.plots._waterfall.waterfall_legacy(mean_sv, # mean of all predictions
+                                         shap_values[0,:],
+                                         feature_names=X.columns)
+    res = fig
+  return res
