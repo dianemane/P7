@@ -262,7 +262,16 @@
           <div class="main">
             <div class="row">
               <div class="col-md-8" style="background-color:#565656">
-                <h4 style="color:#fff">SHAP Global</h4>               
+                <form action="{{ url_for('home')}}" method="POST">
+                  <h4 style="color:#fff">SHAP Global</h4>
+                  <h6 style="color:#fff">Entrez le nombre de features à afficher : </h6>
+                  <!-- <input type="text" name="comment"/> -->
+                  <textarea name="global_shap_nb" rows="1" cols="30"></textarea>
+                  <br/>
+
+                  <input type="submit"  onclick="DisplayResult()" class="btn btn-primary mb-2" value="Afficher le graphique SHAP global"> 
+                  
+                </form>
               <br/>
             </div>
            </div>
@@ -280,7 +289,11 @@
       <div class="main">
         <div class="row">
             <div id="myDIV">
+              {% if prediction5
+              == ''%}
+             {% else %}
              <img src="data:image/png;base64,{{ prediction5 }}" alt="Graphique" class="center"/>
+             {% endif %}
             <br/>
           </div>      
         </div>
@@ -337,6 +350,7 @@
   </div>
 </div>
 </section>
+
 <!-- Usage note: END adding page sections here -->
 
 </div>

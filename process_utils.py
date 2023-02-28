@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 import os
 import sys
 import numpy
@@ -5,17 +7,15 @@ from werkzeug import secure_filename
 import pandas as pd
 from pandas import Series
 import pickle
-from sklearn import preprocessing, decomposition
-from sklearn.preprocessing import StandardScaler
 
 import seaborn as sns
 import time
 import datetime
-import lightgbm
-import matplotlib.pyplot as plt
 
 import shap
 from shap import TreeExplainer, Explanation
+
+import plotly.graph_objects as go
 
 
 
@@ -262,22 +262,23 @@ def sv(data, model, cust_ID):
   return shap_values, mean_sv
 
 
-def global_shap(data, model):
+def global_shap(data, model, nb_features):
   shap_values, mean_sv = sv(data, model, None)
   X = df_to_X_preprocessing(data, None)
   # global shap values for class 1 : bad client
-  return shap.summary_plot(shap_values, X, max_display=12)
+  fig = shap.summary_plot(shap_values, X, max_display=nb_features,show=False)
+  return fig
 
 
 def local_shap(data, model, cust_ID):
-  X = df_to_X_preprocessing(df, cust_ID)
+  X = df_to_X_preprocessing(data, cust_ID)
   res = X
   if isinstance(res, pd.DataFrame):
     shap_values, mean_sv = sv(data, model, cust_ID)
-    X = df_to_X_preprocessing(data, cust_ID)
     # global shap values for class 1 : bad client
     fig = shap.plots._waterfall.waterfall_legacy(mean_sv, # mean of all predictions
                                          shap_values[0,:],
-                                         feature_names=X.columns)
+                                         feature_names=res.columns,
+                                         show=False)
     res = fig
   return res

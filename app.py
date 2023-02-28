@@ -4,6 +4,8 @@ from flask_bootstrap import Bootstrap
 from flask_uploads import UploadSet,configure_uploads,IMAGES,DATA,ALL
 from flask_sqlalchemy import SQLAlchemy 
 
+import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 from werkzeug import secure_filename
 import os
 import datetime
@@ -16,8 +18,7 @@ import numpy
 from sklearn.externals import joblib
 import io
 import base64
-import matplotlib.pyplot as plt
-import lightgbm
+
 import plotly.graph_objects as go
 
 from shap import TreeExplainer, Explanation
@@ -52,7 +53,7 @@ def home():
 	if request.method == 'POST' and 'gauge_message' in request.form:
 		#on prend le message que rentre l'utilisateur
 		gauge_message = request.form['gauge_message']
-		print("POST MSG :   ======"     ,data_id)
+		print("POST MSG :   ======"     ,gauge_message)
 		# fonctione jauge
 		gauge = gauge_from_id(df = data, model = best_model_balanced, cust_ID=gauge_message)
 		if not isinstance(gauge, str):
@@ -64,35 +65,16 @@ def home():
 		# le message que rentre l'utilisateur
 		distrib_message = request.form['distrib_message']
 		distrib_message2 = request.form['distrib_message2']
-		num_var = distrib_message2
-		print("POST MSG :   ======"     ,data_id)
-		print("POST MSG :   ======"     ,num_var)
-		fig2 = distribution_density_plot(data, cust_ID=distrib_message, num_var=num_var)
+		print("POST MSG :   ======"     ,distrib_message)
+		print("POST MSG :   ======"     ,distrib_message2)
+		plt.clf()
+		fig2 = distribution_density_plot(data, cust_ID=distrib_message, num_var=distrib_message2)
 		if not isinstance(fig2, str):
 			tmpfile = io.BytesIO()
-			fig2.savefig(tmpfile, format='png')
+			fig2.savefig(tmpfile, format='png',bbox_inches='tight')
 			encoded_distrib = base64.b64encode(tmpfile.getvalue()).decode()
 
 
-	'''anova = ''
-	if request.method == 'POST' and 'anova_message' in request.form:
-		# le message que rentre l'utilisateur
-		anova_message = request.form['anova_message']
-		anova_message2 = request.form['anova_message2']
-		numerical_var = anova_message
-		categorical_var = anova_message2
-		print("POST MSG :   ======"     ,numerical_var)
-		print("POST MSG :   ======"     ,categorical_var)
-		fig3 = anova_boxplot(data, numerical_var, categorical_var)
-		if not isinstance(fig3, str):
-			tmpfile = io.BytesIO()
-			fig3.savefig(tmpfile, format='png')
-			anova = base64.b64encode(tmpfile.getvalue()).decode()'''
-
-
-	#anova = ''
-	#if request.method == 'GET' and 'anova_num' in request.form:
-		# le message que rentre l'utilisateur
 	menu_num = dropdown_list(data, 'numerical')
 	menu_cat = dropdown_list(data, 'categorical')
 
@@ -105,10 +87,11 @@ def home():
 		categorical_var = anova_message2
 		print("POST MSG :   ======"     ,numerical_var)
 		print("POST MSG :   ======"     ,categorical_var)
+		plt.clf()
 		fig3 = anova_boxplot(data, numerical_var, categorical_var)
 		if not isinstance(fig3, str):
 			tmpfile = io.BytesIO()
-			fig3.savefig(tmpfile, format='png')
+			fig3.savefig(tmpfile, format='png',bbox_inches='tight')
 			anova = base64.b64encode(tmpfile.getvalue()).decode()
 
 
@@ -121,19 +104,23 @@ def home():
 		print("POST MSG :   ======"     ,analyse_bi_ID)
 		print("POST MSG :   ======"     ,analyse_bi_num1)
 		print("POST MSG :   ======"     ,analyse_bi_num2)
+		plt.clf()
 		fig4 = analyse_bivariee_num(data, best_model_balanced, analyse_bi_num1, analyse_bi_num2, analyse_bi_ID)
 		if not isinstance(fig4, str):
 			tmpfile = io.BytesIO()
-			fig4.savefig(tmpfile, format='png')
+			fig4.savefig(tmpfile, format='png',bbox_inches='tight')
 			analyse_bi_num = base64.b64encode(tmpfile.getvalue()).decode()
 
-
+	
 	global_shap_graph = ''
-	fig5 = global_shap(data, best_model_balanced)
-	tmpfile = io.BytesIO()
-	fig5.savefig(tmpfile, format='png')
-	global_shap_graph = base64.b64encode(tmpfile.getvalue()).decode()
-
+	if request.method == 'POST' and 'global_shap_nb' in request.form:
+		global_shap_nb = request.form['global_shap_nb']
+		plt.clf()
+		fig5 = global_shap(data, best_model_balanced, int(global_shap_nb))
+		tmpfile = io.BytesIO()
+		plt.savefig(tmpfile, format='png',bbox_inches='tight')
+		global_shap_graph = base64.b64encode(tmpfile.getvalue()).decode()
+	
 
 
 	local_shap_graph = ''
@@ -141,10 +128,11 @@ def home():
 		# le message que rentre l'utilisateur
 		local_shap_ID = request.form['local_shap_ID']
 		print("POST MSG :   ======"     ,local_shap_ID)
+		plt.clf()
 		fig6 = local_shap(data, best_model_balanced, local_shap_ID)
 		if not isinstance(fig6, str):
 			tmpfile = io.BytesIO()
-			fig6.savefig(tmpfile, format='png')
+			plt.savefig(tmpfile, format = "png", bbox_inches='tight')
 			local_shap_graph = base64.b64encode(tmpfile.getvalue()).decode()
 
 
