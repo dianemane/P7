@@ -86,7 +86,43 @@ def final_proba_1(X, model_proba):
 
   ########## graphs
 
-def gauge_from_id(df, cust_ID, model, threshold=0.429):
+def client_info(data, cust_ID):
+  X = df_to_X_preprocessing(data, cust_ID)
+
+  res = X
+
+  if isinstance(res, pd.DataFrame):
+    info_cols = ['SK_ID_CURR',
+    'CODE_GENDER',
+    'FLAG_OWN_CAR',
+    'FLAG_OWN_REALTY',
+    'CNT_CHILDREN',
+    'AMT_INCOME_TOTAL',
+    'AMT_GOODS_PRICE',
+    'DAYS_BIRTH',
+    'CNT_FAM_MEMBERS',
+    'EXT_SOURCE_2']
+
+    df1 = data[info_cols].copy(deep=True)
+    df1['Age'] = -df1['DAYS_BIRTH']//365
+    df1_id = df1.loc[df1['SK_ID_CURR']==100004,[x for x in info_cols if x != "DAYS_BIRTH"]+['Age']]
+    df1_id_space = [sub.replace('_', ' ') for sub in df1_id.columns]
+
+    fig = go.Figure(data=[go.Table(
+    header=dict(values=list(df1_id_space),
+                fill_color='paleturquoise',
+                align='left',
+                height=40),
+    cells=dict(values=df1_id.transpose().values.tolist(),
+               fill_color='lavender',
+               align='left'))
+    ]) 
+
+    res = fig
+  return res
+
+
+  def gauge_from_id(df, cust_ID, model, threshold=0.429):
     X = df_to_X_preprocessing(df, cust_ID)
 
     res = X
@@ -129,11 +165,14 @@ def distribution_density_plot(data, cust_ID, num_var):
         group.plot(kind='kde', ax=axs[0], label=name)
         group.hist(alpha=0.4, ax=axs[1], label=name)
 
-    value_id = df.loc[df['SK_ID_CURR']==cust_ID,num_var]
+
+    print(df.loc[df['SK_ID_CURR']==int(cust_ID),num_var])
+    print(df.loc[df['SK_ID_CURR']==int(cust_ID),num_var].shape)
+    value_id = df.loc[df['SK_ID_CURR']==int(cust_ID),num_var].iloc[0]
 
     for x in range(2):
         axs[x].set_xlim(df[num_var].min(), df[num_var].max())
-        axs[x].axvline(x = float(value_id), color = 'b')
+        axs[x].axvline(x = value_id, color = 'b')
         axs[x].legend(loc='upper left', frameon=True)
 
 

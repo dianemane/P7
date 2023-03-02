@@ -41,6 +41,53 @@
             <div class="row">
               <div class="col-md-8" style="background-color:#565656">
                <form action="{{ url_for('home')}}" method="POST">
+                <h4 style="color:#fff">Informations du client</h4>
+                <h6 style="color:#fff">Entrez votre ID client : </h6>
+                <!-- <input type="text" name="comment"/> -->
+                <textarea name="cust_info_message" rows="1" cols="30"></textarea>
+                <br/>
+                <input type="submit"  onclick="DisplayResult()" class="btn btn-primary mb-2" value="Afficher les informations du client (non exhaustif)"> 
+              </form>
+              <br/>
+            </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <br>
+ </div>
+</section>
+<section class="page-section fullwidth section-col--light-grey" >
+  <div class="parsys sectionpar">
+    <!-- Usage note: replace the following with component snippet HTML --> 
+    <div class="container">
+      <div class="main">
+        <div class="row">
+            <div id="myDIV">
+             {% if prediction0 == ''%}
+             {% else %}
+             <b><p><font face="georgia" size="5">{{ prediction0 | safe}}</font></p></b>
+             {% endif %}
+            <br/>
+          </div>      
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br>
+</div>
+</section>
+
+    <section class="page-section page-section--no-pad fullwidth section-col--white" >
+      <div class="parsys sectionpar">
+        <!-- Usage note: replace the following with component snippet HTML --> 
+        <br>
+        <div class="container">
+          <div class="main">
+            <div class="row">
+              <div class="col-md-8" style="background-color:#565656">
+               <form action="{{ url_for('home')}}" method="POST">
                 <h4 style="color:#fff">Jauge du client</h4>
                 <h6 style="color:#fff">Entrez votre ID client : </h6>
                 <!-- <input type="text" name="comment"/> -->
@@ -65,9 +112,9 @@
       <div class="main">
         <div class="row">
             <div id="myDIV">
-             {% if prediction == ''%}
+             {% if prediction1 == ''%}
              {% else %}
-             <b><p><font face="georgia" size="5">{{ prediction | safe}}</font></p></b>
+             <b><p><font face="georgia" size="5">{{ prediction1 | safe}}</font></p></b>
              {% endif %}
             <br/>
           </div>      
@@ -90,10 +137,14 @@
                 <h6 style="color:#fff">Entrez votre ID client : </h6>
                 <!-- <input type="text" name="comment"/> -->
                 <textarea name="distrib_message" rows="1" cols="30"></textarea>
-
                 <h6 style="color:#fff">Entrez votre variable numérique : </h6>
                 <!-- <input type="text" name="comment"/> -->
-                <textarea name="distrib_message2" rows="1" cols="30"></textarea>
+                <select name="distrib_message2" method="GET" action="/">
+                  <option value="{{menu_num[0]}}" selected>{{menu_num[0]}}</option>
+                  {% for distrib_message2 in menu_num[1:] %}
+                    <option value="{{distrib_message2}}">{{distrib_message2}}</option>
+                  {% endfor %}
+                </select>
                 <br/>
                 <input type="submit"  onclick="DisplayResult()" class="btn btn-primary mb-2" value="Afficher les graphes de distribution / densité"> 
               </form>

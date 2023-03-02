@@ -49,6 +49,18 @@ best_model_balanced = pickle.load(open(model_path, 'rb'))
 #API
 @app.route('/', methods=['GET'  ,'POST'])
 def home():
+
+	cust_info = ''
+	if request.method == 'POST' and 'cust_info_message' in request.form:
+		#on prend le message que rentre l'utilisateur
+		cust_ID = request.form['cust_info_message']
+		print("POST MSG :   ======"     , cust_ID)
+		# fonctione jauge
+		cust_info = client_info(data, cust_ID)
+		if not isinstance(cust_info, str):
+			cust_info = cust_info.to_html()
+
+
 	gauge = ''
 	if request.method == 'POST' and 'gauge_message' in request.form:
 		#on prend le message que rentre l'utilisateur
@@ -59,6 +71,9 @@ def home():
 		if not isinstance(gauge, str):
 			gauge = gauge.to_html()
 
+
+	menu_num = dropdown_list(data, 'numerical')
+	menu_cat = dropdown_list(data, 'categorical')
 
 	encoded_distrib = ''
 	if request.method == 'POST' and 'distrib_message' in request.form:
@@ -74,9 +89,6 @@ def home():
 			fig2.savefig(tmpfile, format='png',bbox_inches='tight')
 			encoded_distrib = base64.b64encode(tmpfile.getvalue()).decode()
 
-
-	menu_num = dropdown_list(data, 'numerical')
-	menu_cat = dropdown_list(data, 'categorical')
 
 	anova = ''
 	if request.method == 'POST' and 'anova_num' in request.form:
@@ -138,7 +150,8 @@ def home():
 
 	# will put the result at "prediction" and "prediction2" in home.html
 	return render_template('home.html',
-		prediction = gauge,
+		prediction0 = cust_info,
+		prediction1 = gauge,
 		prediction2 = encoded_distrib,
 		prediction3 = anova,
 		menu_num = menu_num,
