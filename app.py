@@ -40,7 +40,7 @@ app.config['UPLOADED_FILES_DEST'] = 'static/uploadsDB'
 configure_uploads(app,files)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///static/uploadsDB/filestorage.db'
 
-my_csv_path = "C:/Users/elie1/Desktop/Diane/OpenClassrooms/Projet 7/feature_engineered_data.csv"
+my_csv_path = "C:/Users/elie1/Desktop/Diane/OpenClassrooms/Projet 7/App_DS/flask_app/feature_engineered_data_subset.csv"
 model_path = "best_model_balanced.pkl"
 
 data = pd.read_csv(my_csv_path, encoding='latin1', index_col=0)
@@ -55,7 +55,6 @@ def home():
 		#on prend le message que rentre l'utilisateur
 		cust_ID = request.form['cust_info_message']
 		print("POST MSG :   ======"     , cust_ID)
-		# fonctione jauge
 		cust_info = client_info(data, cust_ID)
 		if not isinstance(cust_info, str):
 			cust_info = cust_info.to_html()
