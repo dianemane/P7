@@ -6,7 +6,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')
-from werkzeug import secure_filename
 import os
 import datetime
 import time
@@ -15,7 +14,6 @@ import pandas as pd
 from pandas import Series
 import pickle
 import numpy
-from sklearn.externals import joblib
 import io
 import base64
 
