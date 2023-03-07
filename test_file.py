@@ -14,3 +14,12 @@ def test_final_model():
     expected_data_type = (int, float, numpy.float64)
 
     assert type( proba[0] ) in expected_data_type
+
+
+def test_apply_threshold():
+
+    X = df_to_X_preprocessing(data, 305317)
+    pred = apply_threshold([0.1,0.2,0.6], 0.5)
+    expected_data_type = (int, float, numpy.float64)
+
+    assert pred == [0,0,1]
