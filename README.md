@@ -9,7 +9,7 @@ Déploiement continu avec tests unitaires
 
 
 Découpage des dossiers :
-app.py : application flask
+app.py : application pour lancement d'API flask
 static : css du dashboard et images
 templates : html du dashboard (communique avec app.py)
 test_file : fichier pour tests unitaires pytest (commande lancée par Heroku)
