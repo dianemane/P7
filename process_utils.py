@@ -120,7 +120,7 @@ def client_info(data, cust_ID):
     return res
 
 
-def gauge_from_id(df, cust_ID, model, threshold=0.429):
+def gauge_from_id(df, cust_ID, model, threshold=0.5494):
     X = df_to_X_preprocessing(df, cust_ID)
 
     res = X
